@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/02 18:59:11 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/02 19:49:08 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -38,6 +38,15 @@ endif
 if !exists("g:tissue_status_line")
 	let g:tissue_status_line = 1
 endif
+if !exists("g:tissue_github_name")
+	let g:tissue_github_name = system("git config user.name")
+endif
+if !exists("g:tissue_github_authentication")
+	let g:tissue_github_authentication = 0
+	if exists(g:tissue_github_name)
+		let g:tissue_github_authentication = 1
+	endif
+endif
 "}}}
 
 "{{{	Utility functions
@@ -57,9 +66,13 @@ function! s:TissueGoToWindow(name)
         return 0
     endif
 endfunction
+
+function! s:TissueGithubAuthenticate()
+	exe "!curl -u" . g:tissue_github_name . "https://api.github.com/user"
+endfunction
 "}}}
 
-"{{{	Mapping and Settings
+"{{{	Mapping and settings
 function! s:TissueBufferSetting()
     setlocal buftype=nofile
     setlocal bufhidden=hide
@@ -111,6 +124,9 @@ function! s:TissueClose()
 endfunction
 
 function! s:TissueOpen()
+	if g:tissue_github_authentication == 1
+		call s:TissueGithubAuthenticate()
+	endif
 	exe g:tissue_width . "vsplit" . g:tissue_buf_name
 	setlocal filetype=__tissue__
 endfunction
