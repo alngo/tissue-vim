@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 17:58:56 by alngo             #+#    #+#              "
-"    Updated: 2019/11/02 18:19:12 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/02 18:56:33 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -14,7 +14,7 @@
 " File: tissue.vim
 " Description: vim global plugin for issues managment on github
 " Maintainer: alngo <alngo@student.42.fr>
-" License: -license
+" License: MIT License
 " ============================================================================
 
 if exists('g:loaded_tissue') || &cp

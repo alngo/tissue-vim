@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/02 18:50:11 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/02 18:59:11 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -14,11 +14,12 @@
 " File: tissue.vim
 " Description: vim global plugin for issues managment on github
 " Maintainer: alngo <alngo@student.42.fr>
-" License: -license
+" License: MIT License
 " ============================================================================
 
 "{{{ 	Initialization
 scriptencoding = utf-8
+
 let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
 
 if !exists("g:tissue_python")
@@ -94,6 +95,7 @@ function! s:TissueBufferStatusLine()
 endfunction
 "}}}
 
+"{{{ Window management
 function! s:TissueToggle()
     if s:TissueIsVisible()
         call s:TissueClose()
@@ -110,8 +112,9 @@ endfunction
 
 function! s:TissueOpen()
 	exe g:tissue_width . "vsplit" . g:tissue_buf_name
-	setlocal filetype=__Tissue__
+	setlocal filetype=__tissue__
 endfunction
+"}}}
 
 "{{{ Misc
 function! tissue#TissueToggle()
@@ -120,6 +123,6 @@ endfunction
 
 augroup TissueAutoCmd
     autocmd!
-    autocmd Filetype __Tissue__ call s:TissueBufferSetting()
+    autocmd Filetype __tissue__ call s:TissueBufferSetting()
 augroup END
 "}}}
