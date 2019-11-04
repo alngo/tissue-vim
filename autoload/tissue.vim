@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/02 19:49:08 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/03 11:54:03 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -22,6 +22,20 @@ scriptencoding = utf-8
 
 let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
 
+if !exists("g:tissue_api")
+	let s:tissue_url = system("remote -v | head -n 1")
+	if match(s:tissue_url, "github") != -1
+		let g:tissue_api = "github"
+	elseif match(s:tissue_url, "gitlab") != 1
+		let g:tissue_api = "gitlab"
+	else
+		function! s:TissueNoRepository()
+			echohl "Tissue unavailable: require a github repository+"
+		endfunction
+		command! -nargs=0 TissueToggle call s:TissueNoRepository()
+		finish
+	endif
+endif
 if !exists("g:tissue_python")
 	if has("python3")
 		let g:tissue_python = 1
@@ -33,18 +47,18 @@ if !exists("g:tissue_width")
 	let g:tissue_width = 60
 endif
 if !exists("g:tissue_buf_name")
-	let g:tissue_buf_name = "__tissue__"
+	let g:tissue_buf_name ="__tissue__"
 endif
 if !exists("g:tissue_status_line")
 	let g:tissue_status_line = 1
 endif
-if !exists("g:tissue_github_name")
-	let g:tissue_github_name = system("git config user.name")
+if !exists("g:tissue_username")
+	let g:tissue_username = system("git config user.name | head -n 1")
 endif
-if !exists("g:tissue_github_authentication")
-	let g:tissue_github_authentication = 0
-	if exists(g:tissue_github_name)
-		let g:tissue_github_authentication = 1
+if !exists("g:tissue_authentication")
+	let g:tissue_authentication = 0
+	if exists(g:tissue_username)
+		let g:tissue_authentication = 1
 	endif
 endif
 "}}}
@@ -67,8 +81,9 @@ function! s:TissueGoToWindow(name)
     endif
 endfunction
 
-function! s:TissueGithubAuthenticate()
-	exe "!curl -u" . g:tissue_github_name . "https://api.github.com/user"
+function! s:TissueAuthentication()
+	if (g:tissue_api == "github")
+		call #interface#github#Authentication()
 endfunction
 "}}}
 
@@ -124,8 +139,8 @@ function! s:TissueClose()
 endfunction
 
 function! s:TissueOpen()
-	if g:tissue_github_authentication == 1
-		call s:TissueGithubAuthenticate()
+	if g:tissue_authentication == 1 && !exists(g:tissue_authenticated)
+		call s:TissueAuthentication()
 	endif
 	exe g:tissue_width . "vsplit" . g:tissue_buf_name
 	setlocal filetype=__tissue__
