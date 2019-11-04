@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/03 11:54:03 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/04 12:45:19 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -84,6 +84,11 @@ endfunction
 function! s:TissueAuthentication()
 	if (g:tissue_api == "github")
 		call #interface#github#Authentication()
+	elseif (g:tissue_api == "gitlab")
+		echohl ("Gitlab is not supported yet")
+	else
+		echohl ("Other is not supported yet")
+	endif
 endfunction
 "}}}
 

@@ -1,5 +1,5 @@
 let s:api_url = "http://api.github.com"
 
-function! interface#github#Authentication()
-	exe "!curl -u" . g:tissue_username . s:api_url . "/user"
+function! interfaces#github#Authentication()
+	exe "!curl -u " . g:tissue_username . " " . s:api_url . "/user"
 endfunction

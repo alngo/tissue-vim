@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 17:58:56 by alngo             #+#    #+#              "
-"    Updated: 2019/11/02 18:56:33 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/04 13:43:00 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -28,6 +28,8 @@ if v:version < '801'
 	command! -nargs=0 TissueToggle call s:TissueRequireVim8()
 	finish
 endif
+
+
 
 if !has('python') && !has('python3')
 	function! s:TissueRequirePython()
