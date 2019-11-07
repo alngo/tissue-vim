@@ -1,4 +1,7 @@
-tags
+# misc
+
+*.swp
 .vim-flavor
 Gemfile.lock
 VimFlavor.lock
+tags
