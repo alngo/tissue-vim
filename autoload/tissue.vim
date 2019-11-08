@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/04 12:45:19 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/08 16:16:00 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -24,9 +24,10 @@ let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
 
 if !exists("g:tissue_api")
 	let s:tissue_url = system("remote -v | head -n 1")
+	let g:tissue_api = ""
 	if match(s:tissue_url, "github") != -1
 		let g:tissue_api = "github"
-	elseif match(s:tissue_url, "gitlab") != 1
+	elseif match(s:tissue_url, "gitlab") != -1
 		let g:tissue_api = "gitlab"
 	else
 		function! s:TissueNoRepository()
