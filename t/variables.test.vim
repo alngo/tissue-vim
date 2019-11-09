@@ -5,7 +5,10 @@ describe 'default variables value'
 		SKIP 'Git is not available.'
 	endif
 
-	it 'tissue_api should match github'
+	it 'tissue_target should match origin'
+		Expect g:tissue_target == "origin"
+	end
+	it 'tissue_api should match '
 		Expect g:tissue_api == "github"
 	end
 	it 'tissue_width should match 60'
