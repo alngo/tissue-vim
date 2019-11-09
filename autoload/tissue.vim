@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/08 16:16:00 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/09 11:02:12 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -23,7 +23,7 @@ scriptencoding = utf-8
 let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
 
 if !exists("g:tissue_api")
-	let s:tissue_url = system("remote -v | head -n 1")
+	let s:tissue_url = system("git remote -v | head -n 1")
 	let g:tissue_api = ""
 	if match(s:tissue_url, "github") != -1
 		let g:tissue_api = "github"
@@ -35,13 +35,6 @@ if !exists("g:tissue_api")
 		endfunction
 		command! -nargs=0 TissueToggle call s:TissueNoRepository()
 		finish
-	endif
-endif
-if !exists("g:tissue_python")
-	if has("python3")
-		let g:tissue_python = 1
-	else
-		let g:tissue_python = 2
 	endif
 endif
 if !exists("g:tissue_width")

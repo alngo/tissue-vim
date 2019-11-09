@@ -1,12 +1,12 @@
 source t/helpers/setup.vim
 
-describe 'default variables'
+describe 'default variables value'
+	if executable('git') < 1
+		SKIP 'Git is not available.'
+	endif
+
 	it 'tissue_api should match github'
-		echohl g:tissue_url	
 		Expect g:tissue_api == "github"
-	end
-	it 'tissue_python should match 1'
-		Expect g:tissue_python == 1
 	end
 	it 'tissue_width should match 60'
 		Expect g:tissue_width == 60
@@ -17,10 +17,11 @@ describe 'default variables'
 	it 'tissue_status_line should match 1'
 		Expect g:tissue_status_line == 1
 	end
-	it 'tissue_username should match {username}'
-		Expect g:tissue_status_line == ${username}
+	it 'tissue_username should match username'
+		let l:username = system("git config user.name | head -n 1")
+		Expect g:tissue_username == l:username
 	end
-	it 'tissue_authentication should match 0'
-		Expect g:tissue_status_line == 0
+	it 'tissue_authentication should match 1'
+		Expect g:tissue_status_line == 1
 	end
 end
