@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/09 12:01:47 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/09 12:43:44 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -33,7 +33,9 @@ if !exists("g:tissue_status_line")
 endif
 if !exists("g:tissue_authentication")
 	let g:tissue_authentication = 0
-	if exists(g:tissue_username)
+	let g:tissue_authenticated = 0
+	let s:res = exists(g:tissue_username)
+	if get(g:, "tissue_username", "null") != "null"
 		let g:tissue_authentication = 1
 		let g:tissue_authenticated = 0
 	endif
@@ -60,7 +62,7 @@ endfunction
 
 function! s:TissueAuthentication()
 	if (g:tissue_api == "github")
-		call #interface#github#Authentication()
+		call interfaces#github#Authentication()
 	elseif (g:tissue_api == "gitlab")
 		echom ("Gitlab is not supported yet")
 	else
@@ -120,7 +122,6 @@ function! s:TissueClose()
 endfunction
 
 function! s:TissueOpen()
-	call debug#log#echom("authentication")
 	if g:tissue_authentication == 1 && g:tissue_authenticated == 0
 		call s:TissueAuthentication()
 	endif

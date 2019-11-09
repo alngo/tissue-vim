@@ -1,6 +1,6 @@
 source t/helpers/setup.vim
 
-describe 'default variables value'
+describe 'default variables'
 	if executable('git') < 1
 		SKIP 'Git is not available.'
 	endif
@@ -25,6 +25,9 @@ describe 'default variables value'
 		Expect g:tissue_username == l:username
 	end
 	it 'tissue_authentication should match 1'
-		Expect g:tissue_status_line == 1
+		Expect g:tissue_authentication == 1
+	end
+	it 'tissue_authenticated should match 0'
+		Expect g:tissue_authenticated == 0
 	end
 end

@@ -1,8 +1,7 @@
-let s:api_url = "http://api.github.com"
+let s:api_url = "https://api.github.com"
 
 function! interfaces#github#Authentication()
-	let l:basic_authentication = "!curl -u " . g:tissue_username . " " . s:api_url . "/user"
-	let res = system(l:basic_authentication)
-	debug#log#echom(res);
-
+	let cmd = "!curl -u " . g:tissue_username . ' ' . s:api_url . "/user"
+	call debug#log#echom(cmd)
+	exe cmd
 endfunction
