@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/14 15:12:13 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/14 19:10:00 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -38,6 +38,15 @@ if !exists("g:tissue_authentication")
 		let g:tissue_authentication = 1
 		let g:tissue_authenticated = 0
 	endif
+endif
+if !exists("g:tissue_page")
+	let g:tissue_page = 0
+endif
+if !exists("g:tissue_per_page")
+	let g:tissue_per_page = 0
+endif
+if !exists("g:tissue_state")
+	let g:tissue_state ="all"
 endif
 
 if g:tissue_python != -1
@@ -72,6 +81,16 @@ function! s:TissueAuthentication()
 		else
 			echom ("Other is not supported yet")
 		endif
+	endif
+endfunction
+
+function! s:TissueDisplayIssues()
+	if (g:tissue_api == "github")
+		call apis#github#getIssues()
+	elseif (g:tissue_api == "gitlab")
+		echom ("Gitlab is not supported yet")
+	else
+		echom ("Other is not supported yet")
 	endif
 endfunction
 "}}}

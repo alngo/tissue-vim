@@ -1,7 +1,7 @@
 function! utils#git#getRemoteURL(target)
 	let cmd = "git remote -v |" . "grep " . a:target . "| head -n 1"
 	let url = system(cmd)
-	let url = substitute(url, "\s(https://.*)\s", "\1", '')
+	let url = substitute(url, "(https://.*)\s", "\1", '')
 	return url
 endfunction
 
