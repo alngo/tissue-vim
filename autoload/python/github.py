@@ -8,7 +8,7 @@ def searchValueFromKey(key, res):
         return (message)
     return ("")
 
-def checkAuthentification():
+def checkAuth():
     res = vim.eval("l:res")
     msg = searchValueFromKey("message", res)
     login = searchValueFromKey("login", res)

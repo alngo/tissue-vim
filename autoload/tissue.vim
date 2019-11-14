@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/14 13:26:06 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/14 15:12:13 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -38,6 +38,10 @@ if !exists("g:tissue_authentication")
 		let g:tissue_authentication = 1
 		let g:tissue_authenticated = 0
 	endif
+endif
+
+if g:tissue_python != -1
+	call python#py#init()
 endif
 "}}}
 
@@ -123,7 +127,7 @@ function! s:TissueClose()
 endfunction
 
 function! s:TissueOpen()
-		call s:TissueAuthentication()
+	call s:TissueAuthentication()
 	silent exe g:tissue_width . "vsplit" . g:tissue_buf_name
 	setlocal filetype=__tissue__
 endfunction
