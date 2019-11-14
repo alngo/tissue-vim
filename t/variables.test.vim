@@ -21,8 +21,7 @@ describe 'default variables'
 		Expect g:tissue_status_line == 1
 	end
 	it 'tissue_username should match username'
-		let l:username = system("git config user.name | head -n 1")
-		let l:username = trim(l:username)
+		let l:username = utils#git#getUsername()
 		Expect g:tissue_username == l:username
 	end
 	it 'tissue_authentication should match 1'
