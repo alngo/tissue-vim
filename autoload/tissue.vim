@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/14 12:46:49 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/14 13:26:06 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -34,7 +34,6 @@ endif
 if !exists("g:tissue_authentication")
 	let g:tissue_authentication = 0
 	let g:tissue_authenticated = 0
-	let s:res = exists(g:tissue_username)
 	if get(g:, "tissue_username", "null") != "null"
 		let g:tissue_authentication = 1
 		let g:tissue_authenticated = 0
