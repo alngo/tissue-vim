@@ -4,10 +4,11 @@ cache:
     - $HOME/.rvm
     - $HOME/.vvm
 before_install:
+  - sudo apt install libncurses5-dev libgtk2.0-dev libatk1.0-dev libcairo2-dev python-dev python3-dev git
   - curl https://raw.githubusercontent.com/kana/vim-version-manager/master/bin/vvm | python - setup; true
   - source ~/.vvm/etc/login
   - vvm update_itself
-  - vvm use vimorg--v8.1.2106 --install --with-features=huge --enable-pythoninterp=yes --enable-python3interp=yes
+  - vvm use vimorg--v8.1.2106 --install --with-features=huge --enable-pythoninterp=yes --enable-python3interp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu/
   - rvm reload
   - rvm use 2.5.0 --install --binary --fuzzy
 script: rake ci
