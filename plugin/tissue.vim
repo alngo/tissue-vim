@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 17:58:56 by alngo             #+#    #+#              "
-"    Updated: 2019/11/12 12:56:33 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/13 13:45:11 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -26,6 +26,14 @@ if v:version < '801'
 		echohl "Tissue unavailable: require Vim 8.1+"
 	endfunction
 	command! -nargs=0 TissueToggle call s:TissueRequireVim8()
+	finish
+endif
+
+if !has('python') && !has('python3')
+	function! s:TissueRequirePython()
+		echohl "Error: Required vim compiled with +python or +python3"
+	endfunction
+	command! -nargs=0 TissueToggle call s:TissueRequirePython()
 	finish
 endif
 

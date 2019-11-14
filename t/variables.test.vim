@@ -22,6 +22,7 @@ describe 'default variables'
 	end
 	it 'tissue_username should match username'
 		let l:username = system("git config user.name | head -n 1")
+		let l:username = trim(l:username)
 		Expect g:tissue_username == l:username
 	end
 	it 'tissue_authentication should match 1'

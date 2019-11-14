@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/09 12:43:44 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/14 12:46:49 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -20,7 +20,7 @@
 "{{{ 	Initialization
 scriptencoding = utf-8
 
-let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
+let g:plugin_path = escape(expand('<sfile>:p:h'), '\')
 
 if !exists("g:tissue_width")
 	let g:tissue_width = 60
@@ -61,12 +61,14 @@ function! s:TissueGoToWindow(name)
 endfunction
 
 function! s:TissueAuthentication()
-	if (g:tissue_api == "github")
-		call interfaces#github#Authentication()
-	elseif (g:tissue_api == "gitlab")
-		echom ("Gitlab is not supported yet")
-	else
-		echom ("Other is not supported yet")
+	if g:tissue_authentication == 1 && g:tissue_authenticated == 0
+		if (g:tissue_api == "github")
+			call apis#github#Authentication()
+		elseif (g:tissue_api == "gitlab")
+			echom ("Gitlab is not supported yet")
+		else
+			echom ("Other is not supported yet")
+		endif
 	endif
 endfunction
 "}}}
@@ -122,10 +124,8 @@ function! s:TissueClose()
 endfunction
 
 function! s:TissueOpen()
-	if g:tissue_authentication == 1 && g:tissue_authenticated == 0
 		call s:TissueAuthentication()
-	endif
-	exe g:tissue_width . "vsplit" . g:tissue_buf_name
+	silent exe g:tissue_width . "vsplit" . g:tissue_buf_name
 	setlocal filetype=__tissue__
 endfunction
 "}}}
