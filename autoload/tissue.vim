@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/02 18:59:11 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/14 13:26:06 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -20,23 +20,24 @@
 "{{{ 	Initialization
 scriptencoding = utf-8
 
-let s:plugin_path = escape(expand('<sfile>:p:h'), '\')
+let g:plugin_path = escape(expand('<sfile>:p:h'), '\')
 
-if !exists("g:tissue_python")
-	if has("python3")
-		let g:tissue_python = 1
-	else
-		let g:tissue_python = 2
-	endif
-endif
 if !exists("g:tissue_width")
 	let g:tissue_width = 60
 endif
 if !exists("g:tissue_buf_name")
-	let g:tissue_buf_name = "__tissue__"
+	let g:tissue_buf_name ="__tissue__"
 endif
 if !exists("g:tissue_status_line")
 	let g:tissue_status_line = 1
+endif
+if !exists("g:tissue_authentication")
+	let g:tissue_authentication = 0
+	let g:tissue_authenticated = 0
+	if get(g:, "tissue_username", "null") != "null"
+		let g:tissue_authentication = 1
+		let g:tissue_authenticated = 0
+	endif
 endif
 "}}}
 
@@ -57,9 +58,21 @@ function! s:TissueGoToWindow(name)
         return 0
     endif
 endfunction
+
+function! s:TissueAuthentication()
+	if g:tissue_authentication == 1 && g:tissue_authenticated == 0
+		if (g:tissue_api == "github")
+			call apis#github#Authentication()
+		elseif (g:tissue_api == "gitlab")
+			echom ("Gitlab is not supported yet")
+		else
+			echom ("Other is not supported yet")
+		endif
+	endif
+endfunction
 "}}}
 
-"{{{	Mapping and Settings
+"{{{	Mapping and settings
 function! s:TissueBufferSetting()
     setlocal buftype=nofile
     setlocal bufhidden=hide
@@ -67,7 +80,6 @@ function! s:TissueBufferSetting()
     setlocal nobuflisted
     setlocal nomodifiable
     setlocal nolist
-    setlocal nonumber
     setlocal norelativenumber
     setlocal nowrap
     call s:TissueBufferSyntax()
@@ -90,7 +102,7 @@ endfunction
 
 function! s:TissueBufferStatusLine()
 	if (g:tissue_status_line == 1)
-		let &l:statusline = "custom status line *TODO*"
+		let &l:statusline = "target URL" . g:tissue_url
 	endif
 endfunction
 "}}}
@@ -111,7 +123,8 @@ function! s:TissueClose()
 endfunction
 
 function! s:TissueOpen()
-	exe g:tissue_width . "vsplit" . g:tissue_buf_name
+		call s:TissueAuthentication()
+	silent exe g:tissue_width . "vsplit" . g:tissue_buf_name
 	setlocal filetype=__tissue__
 endfunction
 "}}}

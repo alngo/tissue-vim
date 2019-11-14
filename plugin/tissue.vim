@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 17:58:56 by alngo             #+#    #+#              "
-"    Updated: 2019/11/02 18:56:33 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/14 14:33:52 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -35,6 +35,46 @@ if !has('python') && !has('python3')
 	endfunction
 	command! -nargs=0 TissueToggle call s:TissueRequirePython()
 	finish
+endif
+
+if !exists("g:tissue_python")
+	if has("python")
+		let g:tissue_python = 0
+	elseif has("python3")
+		let g:tissue_python = 1
+	endif
+endif
+
+if executable('git') < 1
+	function! s:TissueNoGit()
+		echohl "Tissue unavailable: require a git"
+	endfunction
+	command! -nargs=0 TissueToggle call s:TissueNoGit()
+	finish
+endif
+
+if !exists("g:tissue_target")
+	let g:tissue_target = "origin"
+endif
+
+if !exists("g:tissue_username")
+	let g:tissue_username = utils#git#getUsername()
+endif
+
+if !exists("g:tissue_api")
+	let g:tissue_url = utils#git#getRemoteURL(g:tissue_target)
+	if match(g:tissue_url, "github") != -1
+		let g:tissue_api = "github"
+	elseif match(g:tissue_url, "gitlab") != -1
+		let g:tissue_api = "gitlab"
+	else
+		let g:tissue_api = ""
+		function! s:TissueNoRepository()
+			echom "Tissue unavailable: require a github repository+"
+		endfunction
+		command! -nargs=0 TissueToggle call s:TissueNoRepository()
+		finish
+	endif
 endif
 
 let g:loaded_tissue = 1
