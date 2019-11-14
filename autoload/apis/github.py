@@ -15,7 +15,5 @@ def checkAuthentification():
     if (login):
         print("Authenticated !")
         vim.command("let g:tissue_authenticated = 1")
-        return ("Authenticated !")
     else:
         print(msg)
-        return (msg)
