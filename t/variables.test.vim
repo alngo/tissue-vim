@@ -8,6 +8,14 @@ describe 'default variables'
 	it 'tissue_target should match origin'
 		Expect g:tissue_target == "origin"
 	end
+	it 'tissue_python should match python'
+		if has("python")
+			let l:python = 0
+		elseif has("python3")
+			let l:python = 1
+		endif
+		Expect g:tissue_python == l:python
+	end
 	it 'tissue_api should match '
 		Expect g:tissue_api == "github"
 	end

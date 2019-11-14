@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 17:58:56 by alngo             #+#    #+#              "
-"    Updated: 2019/11/14 13:39:04 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/14 14:33:52 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -35,6 +35,14 @@ if !has('python') && !has('python3')
 	endfunction
 	command! -nargs=0 TissueToggle call s:TissueRequirePython()
 	finish
+endif
+
+if !exists("g:tissue_python")
+	if has("python")
+		let g:tissue_python = 0
+	elseif has("python3")
+		let g:tissue_python = 1
+	endif
 endif
 
 if executable('git') < 1
