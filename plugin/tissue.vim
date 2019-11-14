@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 17:58:56 by alngo             #+#    #+#              "
-"    Updated: 2019/11/13 13:45:11 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/14 13:36:22 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -29,14 +29,6 @@ if v:version < '801'
 	finish
 endif
 
-if !has('python') && !has('python3')
-	function! s:TissueRequirePython()
-		echohl "Error: Required vim compiled with +python or +python3"
-	endfunction
-	command! -nargs=0 TissueToggle call s:TissueRequirePython()
-	finish
-endif
-
 if executable('git') < 1
 	function! s:TissueNoGit()
 		echohl "Tissue unavailable: require a git"
@@ -47,6 +39,18 @@ endif
 
 if !exists("g:tissue_target")
 	let g:tissue_target = "origin"
+endif
+
+if !exists("g:tissue_username")
+	let g:tissue_username = utils#git#getUsername()
+endif
+
+if !has('python') && !has('python3')
+	function! s:TissueRequirePython()
+		echohl "Error: Required vim compiled with +python or +python3"
+	endfunction
+	command! -nargs=0 TissueToggle call s:TissueRequirePython()
+	finish
 endif
 
 if !exists("g:tissue_api")
@@ -63,10 +67,6 @@ if !exists("g:tissue_api")
 		command! -nargs=0 TissueToggle call s:TissueNoRepository()
 		finish
 	endif
-endif
-
-if !exists("g:tissue_username")
-	let g:tissue_username = utils#git#getUsername()
 endif
 
 let g:loaded_tissue = 1
