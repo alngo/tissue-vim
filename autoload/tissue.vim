@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/14 19:10:00 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/15 08:34:26 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -147,6 +147,7 @@ endfunction
 
 function! s:TissueOpen()
 	call s:TissueAuthentication()
+	call s:TissueDisplayIssues()
 	silent exe g:tissue_width . "vsplit" . g:tissue_buf_name
 	setlocal filetype=__tissue__
 endfunction

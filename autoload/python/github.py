@@ -12,7 +12,6 @@ def checkAuth():
     res = vim.eval("l:res")
     msg = searchValueFromKey("message", res)
     login = searchValueFromKey("login", res)
-    print(type(res))
     if (login):
         print("Authenticated !")
         vim.command('let g:tissue_authenticated = 1')

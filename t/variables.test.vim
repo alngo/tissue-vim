@@ -32,6 +32,10 @@ describe 'default variables'
 		let l:username = utils#git#getUsername()
 		Expect g:tissue_username == l:username
 	end
+	it 'tissue_reposname should match reposname'
+		let l:reposname = utils#git#getReposname(g:tissue_target)
+		Expect g:tissue_reposname == l:reposname
+	end
 	it 'tissue_authentication should match 1'
 		Expect g:tissue_authentication == 1
 	end

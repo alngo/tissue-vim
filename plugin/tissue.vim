@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 17:58:56 by alngo             #+#    #+#              "
-"    Updated: 2019/11/14 18:52:11 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/15 08:40:45 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -58,6 +58,10 @@ endif
 
 if !exists("g:tissue_username")
 	let g:tissue_username = utils#git#getUsername()
+endif
+
+if !exists("g:tissue_reposname")
+	let g:tissue_reposname = utils#git#getReposname(g:tissue_target)
 endif
 
 if !exists("g:tissue_api")
