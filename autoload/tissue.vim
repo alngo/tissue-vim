@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/15 08:34:26 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/15 09:14:22 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -43,7 +43,7 @@ if !exists("g:tissue_page")
 	let g:tissue_page = 0
 endif
 if !exists("g:tissue_per_page")
-	let g:tissue_per_page = 0
+	let g:tissue_per_page = 10
 endif
 if !exists("g:tissue_state")
 	let g:tissue_state ="all"
