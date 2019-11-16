@@ -1,5 +1,6 @@
 import vim
 import re
+import json
 
 def searchValueFromKey(key, res):
     match = re.search('"{}": "(.*)"'.format(key), res, re.IGNORECASE)

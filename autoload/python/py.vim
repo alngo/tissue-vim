@@ -6,7 +6,7 @@ function! python#py#init()
 	endif
 endfunction
 
-function python#py#checkAuth(res, name)
+function python#py#checkAuth(res)
 	let l:res = a:res
 	if g:tissue_python == 1
 		python3 checkAuth()
@@ -15,3 +15,11 @@ function python#py#checkAuth(res, name)
 	endif
 endfunction
 
+
+function python#py#getIssues(res)
+	let l:res = a:res
+	if g:tissue_python == 1
+		python3 checkIssues()
+	elseif g:tissue_python == 0
+		python checkTsse	()
+	endif
