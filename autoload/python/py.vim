@@ -21,5 +21,6 @@ function python#py#getIssues(res)
 	if g:tissue_python == 1
 		python3 checkIssues()
 	elseif g:tissue_python == 0
-		python checkTsse	()
+		python checkIssues()
 	endif
+endfunction

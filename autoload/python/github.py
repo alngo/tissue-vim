@@ -2,17 +2,16 @@ import vim
 import re
 import json
 
-def searchValueFromKey(key, res):
-    match = re.search('"{}": "(.*)"'.format(key), res, re.IGNORECASE)
-    if match:
-        message = match.group(1)
-        return (message)
-    return ("")
+def getKeyValue(key, res):
+    try:
+        return res[key]
+    except:
+        return None
 
 def checkAuth():
-    res = vim.eval("l:res")
-    msg = searchValueFromKey("message", res)
-    login = searchValueFromKey("login", res)
+    res = json.loads(vim.eval("l:res"))
+    msg = getKeyValue("message", res)
+    login = getKeyValue("login", res)
     if (login):
         print("Authenticated !")
         vim.command('let g:tissue_authenticated = 1')

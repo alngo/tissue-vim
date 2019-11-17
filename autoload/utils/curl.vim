@@ -1,4 +1,4 @@
 function! utils#curl#handleRes(res)
-	" Check response here
-	return a:res
+	let res = matchstr(a:res, '{.*}')
+	return res
 endfunction
