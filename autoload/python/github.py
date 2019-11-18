@@ -17,3 +17,7 @@ def checkAuth():
         vim.command('let g:tissue_authenticated = 1')
     else:
         print(msg)
+
+def displayIssues():
+    res = vim.eval("l:res")
+    print(res)
