@@ -29,14 +29,13 @@ def formatLabels(labels):
 def formatIssues(issues):
     buf = []
     for issue in issues:
-        labels = ""
+        labels = formatLabels(issue["labels"])
         line1 = "* " + issue["title"] + " " + labels
         line2 = "| " + "#" + str(issue["number"]) + " " + issue["state"] + \
                 " by " + issue["user"]["login"]
         buf.append(line1)
         buf.append(line2)
-        buf.append("| ")
-    buf.append("_")
+        buf.append(" ")
     return buf
 
 def printIssues(buf):

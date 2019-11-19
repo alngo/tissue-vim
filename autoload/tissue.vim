@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/19 10:11:45 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/19 18:40:09 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -43,7 +43,7 @@ if !exists("g:tissue_page")
 	let g:tissue_page = 0
 endif
 if !exists("g:tissue_per_page")
-	let g:tissue_per_page = 10
+	let g:tissue_per_page = 1
 endif
 if !exists("g:tissue_state")
 	let g:tissue_state ="open"
@@ -117,10 +117,25 @@ function! s:TissueBufferSyntax()
     " hi def link [name] keycolor
 endfunction
 
+function! s:Techo(str)
+	echom a:str
+endfunction
+
 function! s:TissueBufferMapping()
-    nnoremap <script> <silent> <buffer> q             :call <sid>TissueClose()<CR>
-    cabbrev  <script> <silent> <buffer> q             call <sid>TissueClose()
-    cabbrev  <script> <silent> <buffer> quit          call <sid>TissueClose()
+    " Edition
+    nnoremap <script> <silent> <buffer> e	:call <sid>Techo("edit")<CR>
+    nnoremap <script> <silent> <buffer> o	:call <sid>Techo("open")<CR>
+    nnoremap <script> <silent> <buffer> c	:call <sid>Techo("close")<CR>
+    nnoremap <script> <silent> <buffer> d	:call <sid>Techo("delete")<CR>
+    " Navigation
+    nnoremap <script> <silent> <buffer> n	:call <sid>Techo("next")<CR>
+    nnoremap <script> <silent> <buffer> p	:call <sid>Techo("prev")<CR>
+    nnoremap <script> <silent> <buffer> k	:call <sid>Techo("up")<CR>
+    nnoremap <script> <silent> <buffer> j	:call <sid>Techo("down")<CR>
+    " Close window
+    nnoremap <script> <silent> <buffer> q       :call <sid>TissueClose()<CR>
+    cabbrev  <script> <silent> <buffer> q       :call <sid>TissueClose()
+    cabbrev  <script> <silent> <buffer> quit    :call <sid>TissueClose()
 endfunction
 
 function! s:TissueBufferStatusLine()
