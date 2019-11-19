@@ -23,15 +23,20 @@ def checkAuth():
     else:
         print(msg)
 
+def formatLabels(labels):
+    return ("")
+
 def formatIssues(issues):
     buf = []
     for issue in issues:
         labels = ""
-        line1 = issue["title"] + " " + labels
-        line2 = "#" + str(issue["number"]) + " " + issue["state"] + " by " + \
-        issue["user"]["login"]
+        line1 = "* " + issue["title"] + " " + labels
+        line2 = "| " + "#" + str(issue["number"]) + " " + issue["state"] + \
+                " by " + issue["user"]["login"]
         buf.append(line1)
         buf.append(line2)
+        buf.append("| ")
+    buf.append("_")
     return buf
 
 def printIssues(buf):
