@@ -2,6 +2,11 @@ import vim
 import re
 import json
 
+def goToBuffer(target):
+    b = vim.eval('bufnr("%s")' % target)
+    w = int(vim.eval('bufwinnr(%d)' % int(b)))
+    vim.command('%dwincmd w' % w)
+
 def getKeyValue(key, res):
     try:
         return res[key]
@@ -18,6 +23,25 @@ def checkAuth():
     else:
         print(msg)
 
-def displayIssues():
-    res = vim.eval("l:res")
-    print(res)
+def formatIssues(issues):
+    buf = []
+    for issue in issues:
+        labels = ""
+        line1 = issue["title"] + " " + labels
+        line2 = "#" + str(issue["number"]) + " " + issue["state"] + " by " + \
+        issue["user"]["login"]
+        buf.append(line1)
+        buf.append(line2)
+    return buf
+
+def printIssues(buf):
+    target = vim.eval("g:tissue_buf_name")
+    goToBuffer(target)
+    vim.command('setlocal modifiable')
+    vim.current.buffer[:] = buf
+    vim.command('setlocal nomodifiable')
+
+def listIssues():
+    res = json.loads(vim.eval("l:res"))
+    buf = formatIssues(res)
+    printIssues(buf)

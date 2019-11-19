@@ -17,12 +17,11 @@ function python#py#checkAuth(res)
 	endif
 endfunction
 
-
-function python#py#displayIssues(res)
+function python#py#listIssues(res)
 	let l:res = a:res
 	if g:tissue_python == 1
-		python3 displayIssues()
+		python3 listIssues()
 	elseif g:tissue_python == 0
-		python displayIssues()
+		python listIssues()
 	endif
 endfunction

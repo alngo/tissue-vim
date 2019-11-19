@@ -1,4 +1,4 @@
-" **************************************************************************** "
+o **************************************************************************** "
 "                                                                              "
 "                                                         :::      ::::::::    "
 "    tissue.vim                                         :+:      :+:    :+:    "
@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/18 08:39:13 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/19 09:02:40 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -84,9 +84,9 @@ function! s:TissueAuthentication()
 	endif
 endfunction
 
-function! s:TissueDisplayIssues()
+function! s:TissueListIssues()
 	if (g:tissue_api == "github")
-		call apis#github#getIssues()
+		call apis#github#listIssues()
 	elseif (g:tissue_api == "gitlab")
 		echom ("Gitlab is not supported yet")
 	else
@@ -147,9 +147,9 @@ endfunction
 
 function! s:TissueOpen()
 	call s:TissueAuthentication()
-	call s:TissueDisplayIssues()
 	silent exe g:tissue_width . "vsplit" . g:tissue_buf_name
 	setlocal filetype=__tissue__
+	call s:TissueListIssues()
 endfunction
 "}}}
 
