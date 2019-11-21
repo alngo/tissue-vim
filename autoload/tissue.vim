@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 18:03:34 by alngo             #+#    #+#              "
-"    Updated: 2019/11/19 18:40:09 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/20 17:35:03 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -21,33 +21,6 @@
 scriptencoding = utf-8
 
 let g:plugin_path = escape(expand('<sfile>:p:h'), '\')
-
-if !exists("g:tissue_width")
-	let g:tissue_width = 60
-endif
-if !exists("g:tissue_buf_name")
-	let g:tissue_buf_name ="__tissue__"
-endif
-if !exists("g:tissue_status_line")
-	let g:tissue_status_line = 1
-endif
-if !exists("g:tissue_authentication")
-	let g:tissue_authentication = 0
-	let g:tissue_authenticated = 0
-	if get(g:, "tissue_username", "null") != "null"
-		let g:tissue_authentication = 1
-		let g:tissue_authenticated = 0
-	endif
-endif
-if !exists("g:tissue_page")
-	let g:tissue_page = 0
-endif
-if !exists("g:tissue_per_page")
-	let g:tissue_per_page = 1
-endif
-if !exists("g:tissue_state")
-	let g:tissue_state ="open"
-endif
 
 if g:tissue_python != -1
 	call python#py#init()
@@ -70,6 +43,13 @@ function! s:TissueGoToWindow(name)
     else
         return 0
     endif
+endfunction
+
+function! s:SetIssuePerPage()
+	s:TissueGoToWindow(g:tissue_buf_name)
+	setlocal modifiable
+	let g:tissue_per_page = winheight(0) / 3 + 5
+	setlocal nomodifiable
 endfunction
 
 function! s:TissueAuthentication()
@@ -102,6 +82,7 @@ function! s:TissueBufferSetting()
     setlocal noswapfile
     setlocal nobuflisted
     setlocal nomodifiable
+    setlocal nonumber
     setlocal nolist
     setlocal norelativenumber
     setlocal nowrap
@@ -123,13 +104,12 @@ endfunction
 
 function! s:TissueBufferMapping()
     " Edition
-    nnoremap <script> <silent> <buffer> e	:call <sid>Techo("edit")<CR>
+    nnoremap <script> <silent> <buffer> n	:call <sid>Techo("new")<CR>
     nnoremap <script> <silent> <buffer> o	:call <sid>Techo("open")<CR>
+    nnoremap <script> <silent> <buffer> e	:call <sid>Techo("edit")<CR>
     nnoremap <script> <silent> <buffer> c	:call <sid>Techo("close")<CR>
     nnoremap <script> <silent> <buffer> d	:call <sid>Techo("delete")<CR>
     " Navigation
-    nnoremap <script> <silent> <buffer> n	:call <sid>Techo("next")<CR>
-    nnoremap <script> <silent> <buffer> p	:call <sid>Techo("prev")<CR>
     nnoremap <script> <silent> <buffer> k	:call <sid>Techo("up")<CR>
     nnoremap <script> <silent> <buffer> j	:call <sid>Techo("down")<CR>
     " Close window
@@ -164,6 +144,9 @@ function! s:TissueOpen()
 	call s:TissueAuthentication()
 	silent exe g:tissue_width . "vsplit" . g:tissue_buf_name
 	setlocal filetype=__tissue__
+	if g:tissue_per_page == 0
+		call s:SetIssuePerPage()
+	endif
 	call s:TissueListIssues()
 endfunction
 "}}}

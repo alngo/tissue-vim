@@ -6,7 +6,7 @@
 "    By: alngo <alngo@student.42.fr>                +#+  +:+       +#+         "
 "                                                 +#+#+#+#+#+   +#+            "
 "    Created: 2019/10/31 17:58:56 by alngo             #+#    #+#              "
-"    Updated: 2019/11/15 08:40:45 by alngo            ###   ########.fr        "
+"    Updated: 2019/11/20 18:00:35 by alngo            ###   ########.fr        "
 "                                                                              "
 " **************************************************************************** "
 
@@ -52,16 +52,29 @@ if executable('git') < 1
 	finish
 endif
 
-if !exists("g:tissue_target")
-	let g:tissue_target = "origin"
-endif
+function! s:initVariable(var, value)
+    if !exists(a:var)
+        exec 'let ' . a:var . ' = ' . "'" . substitute(a:value, "'", "''", "g") . "'"
+        return 1
+    endif
+    return 0
+endfunction
 
-if !exists("g:tissue_username")
-	let g:tissue_username = utils#git#getUsername()
-endif
-
-if !exists("g:tissue_reposname")
-	let g:tissue_reposname = utils#git#getReposname(g:tissue_target)
+call s:initVariable("g:tissue_target", "origin")
+call s:initVariable("g:tissue_username", utils#git#getUsername())
+call s:initVariable("g:tissue_reposname", utils#git#getReposname(g:tissue_target))
+call s:initVariable("g:tissue_width", 60)
+call s:initVariable("g:tissue_buf_name", "__tissue__")
+call s:initVariable("g:tissue_status_line", 1)
+call s:initVariable("g:tissue_page", 0)
+call s:initVariable("g:tissue_per_page", 0)
+call s:initVariable("g:tissue_state", "open")
+if get(g:, "tissue_username", "null") != "null"
+	call s:initVariable("g:tissue_authentication", 1)
+	call s:initVariable("g:tissue_authenticated", 0)
+else
+	call s:initVariable("g:tissue_authentication", 0)
+	call s:initVariable("g:tissue_authenticated", 0)
 endif
 
 if !exists("g:tissue_api")
@@ -79,6 +92,7 @@ if !exists("g:tissue_api")
 		finish
 	endif
 endif
+
 
 let g:loaded_tissue = 1
 
