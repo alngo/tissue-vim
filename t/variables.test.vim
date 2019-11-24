@@ -20,13 +20,13 @@ describe 'default variables'
 		Expect g:tissue_api == "github"
 	end
 	it 'tissue_width should match 60'
-		Expect g:tissue_width == 60
+		Expect g:tissue_width == "60"
 	end
 	it 'tissue_buf_name should match __tissue__'
 		Expect g:tissue_buf_name == "__tissue__"
 	end
 	it 'tissue_status_line should match 1'
-		Expect g:tissue_status_line == 1
+		Expect g:tissue_status_line == "1"
 	end
 	it 'tissue_username should match username'
 		let l:username = utils#git#getUsername()
@@ -37,9 +37,9 @@ describe 'default variables'
 		Expect g:tissue_reposname == l:reposname
 	end
 	it 'tissue_authentication should match 1'
-		Expect g:tissue_authentication == 1
+		Expect g:tissue_authentication == "1"
 	end
 	it 'tissue_authenticated should match 0'
-		Expect g:tissue_authenticated == 0
+		Expect g:tissue_authenticated == "0"
 	end
 end

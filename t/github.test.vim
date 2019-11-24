@@ -8,7 +8,7 @@ describe 'github authentification'
 		elseif g:tissue_python == 0
 			python checkAuth()
 		endif
-		Expect g:tissue_authenticated == 0
+		Expect g:tissue_authenticated == "0"
 	end
 
 	it 'tissue_authenticated should match 1'
